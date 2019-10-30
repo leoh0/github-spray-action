@@ -1,0 +1,32 @@
+name: 'Github Spray Action'
+description: 'A Github Action to run Github Spray'
+inputs:
+  user_name:
+    required: true
+  user_email:
+    required: true
+  github_url:
+    required: true
+  github_user:
+    required: true
+  github_token:
+    required: true
+  github_repository:
+    required: true
+  text:
+    required: true
+runs:
+  using: 'docker'
+  image: 'docker://leoh0/github-spray:master'
+  env:
+  - USERNAME: '${{ inputs.user_name }}'
+  - USEREMAIL: '${{ inputs.user_email }}'
+  - GITHUB_URL: '${{ inputs.github_url }}'
+  - GITHUB_USER: '${{ inputs.github_user }}'
+  - GITHUB_TOKEN: '${{ inputs.github_token }}'
+  args:
+  - '-t ${{ inputs.text }}'
+  - '--multiplier 10'
+  - '--push' 
+  - '--origin ${{ inputs.github_repository }}'
+  
